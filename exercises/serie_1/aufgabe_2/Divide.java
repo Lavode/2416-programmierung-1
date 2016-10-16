@@ -1,5 +1,5 @@
-// FIXME
-// Michael Senn, FIXME
+// Lorenzo Wipfli 13-933-262
+// Michael Senn, 16-126-880
 
 import java.util.Scanner;
 import java.lang.Math;
