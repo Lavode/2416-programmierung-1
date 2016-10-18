@@ -1,16 +1,10 @@
-// Declare new class 'A'
 public class A {
-	// Declare instance variable 'a' as int, initialize to 3
 	private int a = 3;
-	// Declare method with no return value, which increments the value of a
 	public void increment() { a++; }
-	// Declare method, which returns the value of a as a string.
 	public String toString() { return "" + a; }
 }
 
-// Declare new class 'B'
 public class B {
-	// Declare class-level method 'main', which will serve as entry point if the compiled file is executed.
 	public static void main(String args[]) {
 		// Initialize new instance of A class, assign to 'a1'
 		A a1 = new A();
