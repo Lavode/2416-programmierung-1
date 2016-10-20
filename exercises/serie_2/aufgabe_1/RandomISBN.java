@@ -45,7 +45,18 @@ public class RandomISBN
 		bandnr      = formatThreeDigits.format(bandNrNumeric);
 		verlagsnr   = formatTwoDigits.format(verlagsNrNumeric);
 
-		checksum = calculateControlNumber(laendercode, bandnr, verlagsnr).toString();
+		// Calculate checksum
+		int l1 = Integer.parseInt(laendercode.substring(0, 1));
+		int l2 = Integer.parseInt(laendercode.substring(1, 2));
+
+		int b1 = Integer.parseInt(bandnr.substring(0, 1));
+		int b2 = Integer.parseInt(bandnr.substring(1, 2));
+		int b3 = Integer.parseInt(bandnr.substring(2, 3));
+
+		int v1 = Integer.parseInt(verlagsnr.substring(0, 1));
+		int v2 = Integer.parseInt(verlagsnr.substring(1, 2));
+
+		checksum = Integer.toString((hashOp(l1) + l2 + hashOp(b1) + b2 + hashOp(b3) + v1 + hashOp(v2)) % 10);
 
 		// Do not change the following line
 		return laendercode + "-" + bandnr + "-" + verlagsnr + "-" + checksum;
@@ -60,23 +71,5 @@ public class RandomISBN
 			doubled = doubled - 9;
 		}
 		return doubled;
-	}
-
-	private static Integer calculateControlNumber(String laenderCode, String bandNr, String verlagsNr) {
-		Integer checksum;
-
-		int l1 = Integer.parseInt(laenderCode.substring(0, 1));
-		int l2 = Integer.parseInt(laenderCode.substring(1, 2));
-
-		int b1 = Integer.parseInt(bandNr.substring(0, 1));
-		int b2 = Integer.parseInt(bandNr.substring(1, 2));
-		int b3 = Integer.parseInt(bandNr.substring(2, 3));
-
-		int v1 = Integer.parseInt(verlagsNr.substring(0, 1));
-		int v2 = Integer.parseInt(verlagsNr.substring(1, 2));
-
-		checksum = (hashOp(l1) + l2 + hashOp(b1) + b2 + hashOp(b3) + v1 + hashOp(v2)) % 10;
-
-		return checksum;
 	}
 }
