@@ -1,3 +1,6 @@
+// Lorenzo Wipfli 13-933-262
+// Michael Senn, 16-126-880
+
 public class A {
 	private int a = 3;
 	public void increment() { a++; }

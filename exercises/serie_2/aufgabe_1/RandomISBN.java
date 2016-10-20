@@ -2,6 +2,9 @@
 *                Programmierung 1 HS 2016 - Serie 2-1                         * 
 \* ************************************************************************* */
 
+// Lorenzo Wipfli 13-933-262
+// Michael Senn, 16-126-880
+
 import java.text.DecimalFormat;
 import java.util.Random;
 

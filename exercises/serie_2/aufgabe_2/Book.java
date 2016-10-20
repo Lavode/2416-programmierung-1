@@ -2,6 +2,9 @@
 *                Programmierung 1 HS 2016 - Serie 2-2                         * 
 \* ************************************************************************* */
 
+// Lorenzo Wipfli 13-933-262
+// Michael Senn, 16-126-880
+
 import java.util.Date;
 import java.util.Scanner;
 import java.text.*;
