@@ -73,8 +73,25 @@ public class VierGewinnt
 	 */
 	private int insertToken( int column, Token tok )
 	{
-		//TODO: Your code goes here
-		return -1; //TODO: Replace this line
+		// Index exceeds board dimensions - abort.
+		if (column > board.length - 1) {
+			System.out.println(String.format("Column %i does not exist, highest available index is only %i.", column, board[column].length));
+			System.exit(1);
+		}
+		// Starting at the lowest index - which is treated as the bottom-most row by the drawing code.
+		for (int i = 0; i < board[column].length; i++) {
+			Token placedToken = board[column][i];
+			if (placedToken == Token.empty) {
+				board[column][i] = tok;
+				return i;
+			}
+
+		}
+		// If we get until here, then the column has been full.
+		System.out.println(String.format("Invavlid move detected: Column %i is already full.", column));
+		System.exit(1);
+		// Making the compiler happy...
+		return -1;
 	}
 
 
@@ -84,8 +101,14 @@ public class VierGewinnt
 	 */
 	private boolean isBoardFull()
 	{
-		//TODO: Your code goes here
-		return false; //TODO: Replace this line!
+		for (Token[] col : board) {
+			for (Token tok : col) {
+				if (tok == Token.empty) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 
@@ -95,8 +118,151 @@ public class VierGewinnt
 	 */
 	private boolean checkVierGewinnt( int col, int row )
 	{
-		//TODO: Your code goes here
-		return false; //TODO: Replace this line!
+		return checkVictoryHorizontal(col, row) ||
+			checkVictoryVertical(col, row)  ||
+			checkVictoryDiagonalAscending(col, row) ||
+			checkVictoryDiagonalDescending(col, row);
+	}
+
+	private boolean checkVictoryHorizontal(int col, int row) {
+		int tokCount = 1;
+		Token tok = board[col][row];
+
+		// Traversing left
+		for (int traverseCol = col - 1; traverseCol >= 0; traverseCol--) {
+			System.err.println(String.format("[H] Checking field at %s/%s", traverseCol, row));
+			if(board[traverseCol][row] == tok) {
+				tokCount ++;
+				System.err.println(String.format("[H] Found matching token at %s/%s (Count: %s)", traverseCol, row, tokCount));
+			} else {
+				break;
+			}
+		}
+
+		// Traversing right
+		for (int traverseCol = col + 1; traverseCol < board.length; traverseCol++) {
+			System.err.println(String.format("[H] Checking field at %s/%s", traverseCol, row));
+			if(board[traverseCol][row] == tok) {
+				tokCount ++;
+				System.err.println(String.format("[H] Found matching token at %s/%s (Count: %s)", traverseCol, row, tokCount));
+			} else {
+				break;
+			}
+		}
+
+		if (tokCount >= 4) {
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean checkVictoryVertical(int col, int row) {
+		int tokCount = 1;
+		Token tok = board[col][row];
+
+		// Traversing down
+		for (int traverseRow = row - 1; traverseRow >= 0; traverseRow--) {
+			System.err.println(String.format("[V] Checking field at %s/%s", col, traverseRow));
+			if(board[col][traverseRow] == tok) {
+				tokCount ++;
+				System.err.println(String.format("[V] Found matching token at %s/%s (Count: %s)", col, traverseRow, tokCount));
+			} else {
+				break;
+			}
+		}
+
+		// Traversing up
+		for (int traverseRow = row + 1; traverseRow < board[col].length; traverseRow++) {
+			System.err.println(String.format("[V] Checking field at %s/%s", col, traverseRow));
+			if(board[col][traverseRow] == tok) {
+				tokCount ++;
+				System.err.println(String.format("[V] Found matching token at %s/%s (Count: %s)", col, traverseRow, tokCount));
+			} else {
+				break;
+			}
+		}
+
+
+		if (tokCount >= 4) {
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean checkVictoryDiagonalAscending(int col, int row) {
+		int tokCount = 1;
+		Token tok = board[col][row];
+
+		// Traversing right-up
+		for (int step = 1; col + step < board.length && row + step < board[col + step].length; step++) {
+			int traverseRow = row + step;
+			int traverseCol = col + step;
+			System.err.println(String.format("[DA] Checking field at %s/%s", traverseCol, traverseRow));
+			if(board[traverseCol][traverseRow] == tok) {
+				tokCount ++;
+				System.err.println(String.format("[DA] Found matching token at %s/%s (Count: %s)", traverseCol, traverseRow, tokCount));
+			} else {
+				break;
+			}
+		}
+
+		// Traversing left-down
+		for (int step = 1; col - step >= 0 && row - step >= 0; step++) {
+			int traverseRow = row - step;
+			int traverseCol = col - step;
+			System.err.println(String.format("[DA] Checking field at %s/%s", traverseCol, traverseRow));
+			if(board[traverseCol][traverseRow] == tok) {
+				tokCount ++;
+				System.err.println(String.format("[DA] Found matching token at %s/%s (Count: %s)", traverseCol, traverseRow, tokCount));
+			} else {
+				break;
+			}
+		}
+
+		if (tokCount >= 4) {
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean checkVictoryDiagonalDescending(int col, int row) {
+		int tokCount = 1;
+		Token tok = board[col][row];
+
+		// Traversing right-down
+		for (int step = 1; col + step < board.length && row - step >= 0; step++) {
+			int traverseRow = row - step;
+			int traverseCol = col + step;
+			System.err.println(String.format("[DD] Checking field at %s/%s", traverseCol, traverseRow));
+			if(board[traverseCol][traverseRow] == tok) {
+				tokCount ++;
+				System.err.println(String.format("[DD] Found matching token at %s/%s (Count: %s)", traverseCol, traverseRow, tokCount));
+			} else {
+				break;
+			}
+		}
+
+		// Traversing left-up
+		for (int step = 1; col - step >= 0 && row + step < board[col + step].length; step++) {
+			int traverseRow = row + step;
+			int traverseCol = col - step;
+			System.err.println(String.format("[DD] Checking field at %s/%s", traverseCol, traverseRow));
+			if(board[traverseCol][traverseRow] == tok) {
+				tokCount ++;
+				System.err.println(String.format("[DD] Found matching token at %s/%s (Count: %s)", traverseCol, traverseRow, tokCount));
+			} else {
+				break;
+			}
+		}
+
+		if (tokCount >= 4) {
+			return true;
+		}
+
+		return false;
 	}
 
 
