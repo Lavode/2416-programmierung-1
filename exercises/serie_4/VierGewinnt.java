@@ -4,6 +4,9 @@
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.logging.Logger;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
 
 
 public class VierGewinnt
@@ -15,9 +18,14 @@ public class VierGewinnt
 	private Token[][] board = new Token[ COLS ][ ROWS ]; // 7 columns with 6 fields each
 	private IPlayer[] players = new IPlayer[ 2 ]; // two players
 
+	private static final Logger logger = Logger.getLogger(VierGewinnt.class.getName());
+
 	/** initialize board and players and start the game */
 	public void play()
 	{
+		// Set to Level.INFO to get debug output
+		logger.setLevel(Level.WARNING);
+
 		// initialize the board
 		for ( Token[] column : this.board ) {
 			Arrays.fill( column, Token.empty );
@@ -129,10 +137,10 @@ public class VierGewinnt
 
 		// Traversing left
 		for (int traverseCol = col - 1; traverseCol >= 0; traverseCol--) {
-			System.err.println(String.format("[H] Checking field at %s/%s", traverseCol, row));
+			logger.info(String.format("[H] Checking field at %s/%s", traverseCol, row));
 			if(board[traverseCol][row] == tok) {
 				tokCount ++;
-				System.err.println(String.format("[H] Found matching token at %s/%s (Count: %s)", traverseCol, row, tokCount));
+				logger.info(String.format("[H] Found matching token at %s/%s (Count: %s)", traverseCol, row, tokCount));
 			} else {
 				break;
 			}
@@ -140,10 +148,10 @@ public class VierGewinnt
 
 		// Traversing right
 		for (int traverseCol = col + 1; traverseCol < board.length; traverseCol++) {
-			System.err.println(String.format("[H] Checking field at %s/%s", traverseCol, row));
+			logger.info(String.format("[H] Checking field at %s/%s", traverseCol, row));
 			if(board[traverseCol][row] == tok) {
 				tokCount ++;
-				System.err.println(String.format("[H] Found matching token at %s/%s (Count: %s)", traverseCol, row, tokCount));
+				logger.info(String.format("[H] Found matching token at %s/%s (Count: %s)", traverseCol, row, tokCount));
 			} else {
 				break;
 			}
@@ -162,10 +170,10 @@ public class VierGewinnt
 
 		// Traversing down
 		for (int traverseRow = row - 1; traverseRow >= 0; traverseRow--) {
-			System.err.println(String.format("[V] Checking field at %s/%s", col, traverseRow));
+			logger.info(String.format("[V] Checking field at %s/%s", col, traverseRow));
 			if(board[col][traverseRow] == tok) {
 				tokCount ++;
-				System.err.println(String.format("[V] Found matching token at %s/%s (Count: %s)", col, traverseRow, tokCount));
+				logger.info(String.format("[V] Found matching token at %s/%s (Count: %s)", col, traverseRow, tokCount));
 			} else {
 				break;
 			}
@@ -173,10 +181,10 @@ public class VierGewinnt
 
 		// Traversing up
 		for (int traverseRow = row + 1; traverseRow < board[col].length; traverseRow++) {
-			System.err.println(String.format("[V] Checking field at %s/%s", col, traverseRow));
+			logger.info(String.format("[V] Checking field at %s/%s", col, traverseRow));
 			if(board[col][traverseRow] == tok) {
 				tokCount ++;
-				System.err.println(String.format("[V] Found matching token at %s/%s (Count: %s)", col, traverseRow, tokCount));
+				logger.info(String.format("[V] Found matching token at %s/%s (Count: %s)", col, traverseRow, tokCount));
 			} else {
 				break;
 			}
@@ -198,10 +206,10 @@ public class VierGewinnt
 		for (int step = 1; col + step < board.length && row + step < board[1].length; step++) {
 			int traverseRow = row + step;
 			int traverseCol = col + step;
-			System.err.println(String.format("[DA] Checking field at %s/%s", traverseCol, traverseRow));
+			logger.info(String.format("[DA] Checking field at %s/%s", traverseCol, traverseRow));
 			if(board[traverseCol][traverseRow] == tok) {
 				tokCount ++;
-				System.err.println(String.format("[DA] Found matching token at %s/%s (Count: %s)", traverseCol, traverseRow, tokCount));
+				logger.info(String.format("[DA] Found matching token at %s/%s (Count: %s)", traverseCol, traverseRow, tokCount));
 			} else {
 				break;
 			}
@@ -211,10 +219,10 @@ public class VierGewinnt
 		for (int step = 1; col - step >= 0 && row - step >= 0; step++) {
 			int traverseRow = row - step;
 			int traverseCol = col - step;
-			System.err.println(String.format("[DA] Checking field at %s/%s", traverseCol, traverseRow));
+			logger.info(String.format("[DA] Checking field at %s/%s", traverseCol, traverseRow));
 			if(board[traverseCol][traverseRow] == tok) {
 				tokCount ++;
-				System.err.println(String.format("[DA] Found matching token at %s/%s (Count: %s)", traverseCol, traverseRow, tokCount));
+				logger.info(String.format("[DA] Found matching token at %s/%s (Count: %s)", traverseCol, traverseRow, tokCount));
 			} else {
 				break;
 			}
@@ -235,10 +243,10 @@ public class VierGewinnt
 		for (int step = 1; col + step < board.length && row - step >= 0; step++) {
 			int traverseRow = row - step;
 			int traverseCol = col + step;
-			System.err.println(String.format("[DD] Checking field at %s/%s", traverseCol, traverseRow));
+			logger.info(String.format("[DD] Checking field at %s/%s", traverseCol, traverseRow));
 			if(board[traverseCol][traverseRow] == tok) {
 				tokCount ++;
-				System.err.println(String.format("[DD] Found matching token at %s/%s (Count: %s)", traverseCol, traverseRow, tokCount));
+				logger.info(String.format("[DD] Found matching token at %s/%s (Count: %s)", traverseCol, traverseRow, tokCount));
 			} else {
 				break;
 			}
@@ -248,10 +256,10 @@ public class VierGewinnt
 		for (int step = 1; col - step >= 0 && row + step < board[1].length; step++) {
 			int traverseRow = row + step;
 			int traverseCol = col - step;
-			System.err.println(String.format("[DD] Checking field at %s/%s", traverseCol, traverseRow));
+			logger.info(String.format("[DD] Checking field at %s/%s", traverseCol, traverseRow));
 			if(board[traverseCol][traverseRow] == tok) {
 				tokCount ++;
-				System.err.println(String.format("[DD] Found matching token at %s/%s (Count: %s)", traverseCol, traverseRow, tokCount));
+				logger.info(String.format("[DD] Found matching token at %s/%s (Count: %s)", traverseCol, traverseRow, tokCount));
 			} else {
 				break;
 			}
