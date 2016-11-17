@@ -1,5 +1,5 @@
-//Lorenzo Wipfli 13-933-262
-//Michael Senn 
+// Lorenzo Wipfli 13-933-262
+// Michael Senn, 16-126-880
 
 import java.util.*;
 public class Order {
@@ -51,7 +51,7 @@ public class Order {
 		{
 			s=s+articles.get(i).toString()+"\n";
 		}
-		s = s+"Total price:  "+getTotalPrice()+" CHF \n";
+		s = s+"Total price: "+getTotalPrice()+" CHF \n";
 		return s;
 	}
 

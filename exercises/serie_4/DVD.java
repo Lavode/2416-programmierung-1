@@ -1,3 +1,6 @@
+// Lorenzo Wipfli 13-933-262
+// Michael Senn, 16-126-880
+
 public class DVD implements IArticle
 {
 	private int id;
