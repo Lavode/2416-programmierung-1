@@ -86,7 +86,7 @@ public class VierGewinnt
 	{
 		// Index exceeds board dimensions - abort.
 		if (column > board.length - 1) {
-			System.out.println(String.format("Column %i does not exist, highest available index is only %i.", column, board[column].length));
+			System.out.println(String.format("Column %s does not exist, highest available index is only %s.", column, board[column].length));
 			System.exit(1);
 		}
 		// Starting at the lowest index - which is treated as the bottom-most row by the drawing code.
@@ -99,7 +99,7 @@ public class VierGewinnt
 
 		}
 		// If we get until here, then the column has been full.
-		System.out.println(String.format("Invavlid move detected: Column %i is already full.", column));
+		System.out.println(String.format("Invavlid move detected: Column %s is already full.", column));
 		System.exit(1);
 		// Making the compiler happy...
 		return -1;
