@@ -101,11 +101,10 @@ public class VierGewinnt
 	 */
 	private boolean isBoardFull()
 	{
+		// Sufficient to check the topmost row of each column.
 		for (Token[] col : board) {
-			for (Token tok : col) {
-				if (tok == Token.empty) {
-					return false;
-				}
+			if (col[col.length - 1] == Token.empty) {
+				return false;
 			}
 		}
 		return true;
@@ -196,7 +195,7 @@ public class VierGewinnt
 		Token tok = board[col][row];
 
 		// Traversing right-up
-		for (int step = 1; col + step < board.length && row + step < board[col + step].length; step++) {
+		for (int step = 1; col + step < board.length && row + step < board[1].length; step++) {
 			int traverseRow = row + step;
 			int traverseCol = col + step;
 			System.err.println(String.format("[DA] Checking field at %s/%s", traverseCol, traverseRow));
@@ -246,7 +245,7 @@ public class VierGewinnt
 		}
 
 		// Traversing left-up
-		for (int step = 1; col - step >= 0 && row + step < board[col + step].length; step++) {
+		for (int step = 1; col - step >= 0 && row + step < board[1].length; step++) {
 			int traverseRow = row + step;
 			int traverseCol = col - step;
 			System.err.println(String.format("[DD] Checking field at %s/%s", traverseCol, traverseRow));
