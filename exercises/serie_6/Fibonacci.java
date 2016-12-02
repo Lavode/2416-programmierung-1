@@ -2,8 +2,9 @@ public class Fibonacci
 {
 	public static void main(String[] args) {
 		for (int i = 1; i <= 50; i++) {
-			long localFib = fib(i);
-			System.out.println(String.format("Fibonacci %s = %s", i, localFib));
+			long fib = fibRecursive(i);
+			// long fib = fibLinear(i);
+			System.out.println(String.format("Fibonacci %s = %s", i, fib));
 		}
 	}
 
@@ -12,13 +13,13 @@ public class Fibonacci
 	 *
 	 * Mind, horrible complexity O(2^n)?
 	 */
-	private static long fib(int count) {
+	private static long fibRecursive(int count) {
 		if (count == 0) {
 			return 0;
 		} else if (count == 1) {
 			return 1;
 		} else {
-			return fib(count - 1) + fib(count - 2);
+			return fibRecursive(count - 1) + fibRecursive(count - 2);
 		}
 	}
 
