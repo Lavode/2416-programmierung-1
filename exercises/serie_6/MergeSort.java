@@ -5,12 +5,10 @@ import java.util.ArrayList;
 public class MergeSort
 {
 	public static void sort(Comparable[] input) {
-		System.out.println("------");
-		input = mergeSort(input);
-		for (Comparable comp : input) {
-			System.out.println(comp.toString());
+		Comparable[] sortedInput = mergeSort(input);
+		for (int i = 0; i < sortedInput.length; i++) {
+			input[i] = sortedInput[i];
 		}
-		System.out.println("------");
 	}
 
 	private static Comparable[] mergeSort(Comparable[] input) {
