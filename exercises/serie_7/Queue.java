@@ -1,7 +1,7 @@
 public class Queue
 {
 	private QueueNode firstNode;
-	// Keeping a referencec to the last node to accelerate enqueueing.
+	// Keeping a reference to the last node to accelerate enqueueing.
 	// This way we can enqueue new objects in constant time, instead of
 	// having to traverse the queue.
 	private QueueNode lastNode;
