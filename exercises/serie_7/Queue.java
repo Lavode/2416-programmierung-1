@@ -10,11 +10,13 @@ public class Queue
 	 * Add an arbitrary object to the end of the queue.
 	 */
 	public void enqueue(Object input) {
+		QueueNode nextNode = new QueueNode(input);
 		if (this.firstNode == null) {
-			this.firstNode = new QueueNode(input);
+			this.firstNode = nextNode;
 			this.lastNode = this.firstNode;
 		} else {
-			QueueNode nextNode = new QueueNode(input);
+			// Link new node to end of queue, and update our
+			// reference to the last node.
 			this.lastNode.setNextNode(nextNode);
 			this.lastNode = nextNode;
 		}
@@ -33,6 +35,12 @@ public class Queue
 		QueueNode outputNode = this.firstNode;
 		// The to-be-dequeued node's successor is now our first node.
 		this.firstNode = outputNode.getNextNode();
+
+		if (isEmpty()) {
+			// If we just dequeued the final item, also purge the reference to the lastNode.
+			// Not strictly needed, but this allows GC to kick in - and is also cleaner.
+			this.lastNode = null;
+		}
 
 		return outputNode.getObject();
 	}
