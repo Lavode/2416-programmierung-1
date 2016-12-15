@@ -11,7 +11,7 @@ public class Queue
 	 */
 	public void enqueue(Object input) {
 		QueueNode nextNode = new QueueNode(input);
-		if (this.firstNode == null) {
+		if (isEmpty()) {
 			this.firstNode = nextNode;
 			this.lastNode = this.firstNode;
 		} else {
